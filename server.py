@@ -59,6 +59,13 @@ EACH_RE = re.compile(r"<!--each:([\w.]+)-->([\s\S]*?)<!--endeach-->")
 IF_RE = re.compile(r"<!--if:([\w.]+)-->([\s\S]*?)<!--endif-->")
 IFNOT_RE = re.compile(r"<!--ifnot:([\w.]+)-->([\s\S]*?)<!--endif-->")
 
+# Переставляемые блоки страницы: секции в <main> и пункты навигации
+SECTION_RE = re.compile(r"<!--section:(\w+)-->([\s\S]*?)<!--endsection-->")
+NAVITEM_RE = re.compile(r"<!--navitem:(\w+)-->([\s\S]*?)<!--endnavitem-->")
+
+DEFAULT_BLOCK_ORDER = ["banner", "about", "gallery", "diplomas",
+                       "services", "formats", "contact"]
+
 
 def get_path(obj, path):
     cur = obj
@@ -215,6 +222,20 @@ def sanitize(data, current):
         else:
             out["blocks"][key] = bool(base_blocks.get(key))
 
+    # Порядок блоков: берём присланный список, пропускаем только известные
+    # блоки и дописываем в конец те, что не упомянуты
+    known_blocks = list(out["blocks"].keys())
+    raw_order = data.get("blockOrder")
+    order = []
+    if isinstance(raw_order, list):
+        for name in raw_order:
+            if isinstance(name, str) and name in known_blocks and name not in order:
+                order.append(name)
+    for name in known_blocks:
+        if name not in order:
+            order.append(name)
+    out["blockOrder"] = order
+
     out["gallery"] = sanitize_list(data, current, "gallery", ("image", "caption"), 12)
     out["diplomas"] = sanitize_list(data, current, "diplomas", ("image", "title"), 20)
 
@@ -330,9 +351,47 @@ def og_image_tag(c):
     return f'<meta property="og:image" content="{esc(image)}">' if image else ""
 
 
+def block_order(content):
+    """Порядок блоков из настроек; всегда содержит все известные блоки."""
+    known = list(content.get("blocks", {}).keys()) or DEFAULT_BLOCK_ORDER
+    raw = content.get("blockOrder")
+    order = []
+    if isinstance(raw, list):
+        for name in raw:
+            if isinstance(name, str) and name in known and name not in order:
+                order.append(name)
+    for name in known:
+        if name not in order:
+            order.append(name)
+    return order
+
+
+def splice_blocks(template, regex, order):
+    """Вырезает блоки, размеченные regex (<!--section:имя-->...), и вставляет
+    их обратно в заданном порядке — на месте первого блока. Блоки без
+    маркера пропускаются, поэтому баннеру, например, не нужен пункт в меню."""
+    bodies = {m.group(1): m.group(2) for m in regex.finditer(template)}
+    if not bodies:
+        return template
+    ordered = "".join(bodies[name] for name in order if name in bodies)
+    first = True
+
+    def sub(_match):
+        nonlocal first
+        if first:
+            first = False
+            return ordered
+        return ""
+
+    return regex.sub(sub, template)
+
+
 def render_page():
     template = (PUBLIC_DIR / "index.html").read_text(encoding="utf-8")
     content = get_content()
+    order = block_order(content)
+    template = splice_blocks(template, SECTION_RE, order)
+    template = splice_blocks(template, NAVITEM_RE, order)
     html = render_tpl(template, {"root": content, "this": None, "index": None})
     html = html.replace("<!--OGIMAGE-->", og_image_tag(content))
     html = html.replace(

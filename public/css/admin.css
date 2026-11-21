@@ -421,6 +421,58 @@ button { font-family: var(--font); }
   border-radius: 12px;
 }
 
+/* ---------- Список блоков сайта ---------- */
+
+.blocklist {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.blocklist__rows { display: grid; gap: 10px; }
+
+.blocklist__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #FBFCFE;
+}
+
+.blocklist__row--dragging { opacity: .45; }
+
+.blocklist__handle {
+  flex: none;
+  cursor: grab;
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 2px;
+  user-select: none;
+}
+.blocklist__handle:active { cursor: grabbing; }
+
+.blocklist__label { flex: 1; font-weight: 600; font-size: 14.5px; }
+
+.blocklist__move { display: flex; gap: 6px; }
+
+.blocklist__move button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1;
+}
+.blocklist__move button:hover { border-color: var(--blue); background: rgba(43, 76, 126, .08); }
+
 /* ---------- Пароль ---------- */
 
 .passwordForm {

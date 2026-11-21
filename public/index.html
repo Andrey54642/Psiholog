@@ -36,12 +36,12 @@
       <span class="logo__text">{{site.psychologistName}}</span>
     </a>
     <nav class="nav" id="nav">
-      <!--if:blocks.about--><a href="#about">Обо мне</a><!--endif-->
-      <!--if:blocks.gallery--><a href="#photos">Фотографии</a><!--endif-->
-      <!--if:blocks.services--><a href="#services">Направления</a><!--endif-->
-      <!--if:blocks.formats--><a href="#formats">Цены</a><!--endif-->
-      <!--if:blocks.diplomas--><a href="#diplomas">Дипломы</a><!--endif-->
-      <!--if:blocks.contact--><a href="#contact">Контакты</a><!--endif-->
+      <!--navitem:about--><!--if:blocks.about--><a href="#about">Обо мне</a><!--endif--><!--endnavitem-->
+      <!--navitem:gallery--><!--if:blocks.gallery--><a href="#photos">Фотографии</a><!--endif--><!--endnavitem-->
+      <!--navitem:services--><!--if:blocks.services--><a href="#services">Направления</a><!--endif--><!--endnavitem-->
+      <!--navitem:formats--><!--if:blocks.formats--><a href="#formats">Цены</a><!--endif--><!--endnavitem-->
+      <!--navitem:diplomas--><!--if:blocks.diplomas--><a href="#diplomas">Дипломы</a><!--endif--><!--endnavitem-->
+      <!--navitem:contact--><!--if:blocks.contact--><a href="#contact">Контакты</a><!--endif--><!--endnavitem-->
     </nav>
     <div class="header__cta">
       <!--if:site.primaryBtnLink--><a class="btn btn--small" href="{{site.primaryBtnLink}}">{{site.primaryBtnText}}</a><!--endif-->
@@ -56,7 +56,6 @@
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__text">
-        <p class="hero__kicker reveal">{{site.badge}}</p>
         <p class="hero__role reveal">{{site.role}}</p>
         <h1 class="hero__name reveal">{{site.psychologistName}}</h1>
         <p class="hero__tagline reveal">{{site.tagline}}</p>
@@ -100,6 +99,7 @@
     </div>
   </section>
 
+  <!--section:banner-->
   <!--if:blocks.banner-->
   <!-- BANNER -->
   <section class="banner">
@@ -109,7 +109,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:about-->
   <!--if:blocks.about-->
   <!-- ABOUT -->
   <section class="section about" id="about">
@@ -130,7 +132,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:gallery-->
   <!--if:blocks.gallery-->
   <!-- PHOTOS -->
   <section class="section gallery" id="photos">
@@ -151,7 +155,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:diplomas-->
   <!--if:blocks.diplomas-->
   <!-- DIPLOMAS -->
   <section class="section diplomas" id="diplomas">
@@ -174,7 +180,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:services-->
   <!--if:blocks.services-->
   <!-- SERVICES -->
   <section class="section services" id="services">
@@ -197,7 +205,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:formats-->
   <!--if:blocks.formats-->
   <!-- FORMATS & PRICING -->
   <section class="section formats" id="formats">
@@ -228,7 +238,9 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
+  <!--section:contact-->
   <!--if:blocks.contact-->
   <!-- CONTACT -->
   <section class="section contact" id="contact">
@@ -251,6 +263,7 @@
     </div>
   </section>
   <!--endif-->
+  <!--endsection-->
 
 </main>
 

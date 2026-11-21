@@ -10,7 +10,6 @@
       fields: [
         { path: "site.psychologistName", label: "Имя и фамилия", type: "text" },
         { path: "site.role", label: "Роль (над именем)", type: "text" },
-        { path: "site.badge", label: "Бейдж над именем", type: "text" },
         { path: "site.tagline", label: "Главная фраза", type: "text" },
         { path: "site.taglineSub", label: "Пояснение под фразой", type: "textarea" },
         { path: "site.bannerTitle", label: "Баннер: заголовок", type: "text" },
@@ -25,15 +24,15 @@
     {
       id: "blocks",
       title: "Блоки сайта",
-      hint: "Включите или скройте любой раздел страницы",
-      fields: [
-        { path: "blocks.banner", label: "Баннер «Внешне справляетесь…»", type: "checkbox" },
-        { path: "blocks.about", label: "Обо мне и образование", type: "checkbox" },
-        { path: "blocks.gallery", label: "Фотографии", type: "checkbox" },
-        { path: "blocks.diplomas", label: "Дипломы и сертификаты", type: "checkbox" },
-        { path: "blocks.services", label: "Направления работы", type: "checkbox" },
-        { path: "blocks.formats", label: "Форматы и цены", type: "checkbox" },
-        { path: "blocks.contact", label: "Контакты", type: "checkbox" }
+      hint: "Тумблером включайте или скрывайте раздел. Порядок на сайте меняется перетаскиванием строки или стрелками вверх/вниз.",
+      blockList: [
+        { key: "banner", label: "Баннер «Внешне справляетесь…»" },
+        { key: "about", label: "Обо мне и образование" },
+        { key: "gallery", label: "Фотографии" },
+        { key: "diplomas", label: "Дипломы и сертификаты" },
+        { key: "services", label: "Направления работы" },
+        { key: "formats", label: "Форматы и цены" },
+        { key: "contact", label: "Контакты" }
       ]
     },
     {
@@ -460,6 +459,122 @@
     return wrap;
   }
 
+  // ---------- список блоков сайта с сортировкой ----------
+
+  function buildBlockRow(block) {
+    var row = document.createElement("div");
+    row.className = "blocklist__row";
+    row.draggable = true;
+    row.dataset.block = block.key;
+
+    var handle = document.createElement("span");
+    handle.className = "blocklist__handle";
+    handle.textContent = "⠿";
+    handle.title = "Перетащите, чтобы изменить порядок";
+    row.appendChild(handle);
+
+    var title = document.createElement("span");
+    title.className = "blocklist__label";
+    title.textContent = block.label;
+    row.appendChild(title);
+
+    var switchLabel = document.createElement("label");
+    switchLabel.className = "switch";
+    var toggle = document.createElement("input");
+    toggle.type = "checkbox";
+    toggle.dataset.path = "blocks." + block.key;
+    var track = document.createElement("span");
+    track.className = "switch__track";
+    switchLabel.appendChild(toggle);
+    switchLabel.appendChild(track);
+    switchLabel.title = "Показать или скрыть блок на сайте";
+    row.appendChild(switchLabel);
+
+    var move = document.createElement("div");
+    move.className = "blocklist__move";
+    var up = document.createElement("button");
+    up.type = "button";
+    up.textContent = "↑";
+    up.title = "Переместить выше";
+    up.addEventListener("click", function () { moveBlockRow(row, -1); });
+    var down = document.createElement("button");
+    down.type = "button";
+    down.textContent = "↓";
+    down.title = "Переместить ниже";
+    down.addEventListener("click", function () { moveBlockRow(row, 1); });
+    move.appendChild(up);
+    move.appendChild(down);
+    row.appendChild(move);
+
+    return row;
+  }
+
+  function moveBlockRow(row, dir) {
+    var rows = row.parentNode;
+    if (dir < 0 && row.previousElementSibling) {
+      rows.insertBefore(row, row.previousElementSibling);
+    } else if (dir > 0 && row.nextElementSibling) {
+      rows.insertBefore(row.nextElementSibling, row);
+    }
+  }
+
+  function dragAfterElement(container, y) {
+    var rows = $$(".blocklist__row:not(.blocklist__row--dragging)", container);
+    var closest = { offset: -Infinity, element: null };
+    rows.forEach(function (child) {
+      var box = child.getBoundingClientRect();
+      var offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) closest = { offset: offset, element: child };
+    });
+    return closest.element;
+  }
+
+  function buildBlockList(blocks, content) {
+    var wrap = document.createElement("div");
+    wrap.className = "blocklist";
+
+    var known = blocks.map(function (b) { return b.key; });
+    var byKey = {};
+    blocks.forEach(function (b) { byKey[b.key] = b; });
+
+    // Порядок из сохранённых настроек + блоки, которых в нём нет, в конец
+    var saved = getPath(content, "blockOrder");
+    var names = [];
+    (Array.isArray(saved) ? saved : []).forEach(function (name) {
+      if (known.indexOf(name) !== -1 && names.indexOf(name) === -1) names.push(name);
+    });
+    known.forEach(function (name) {
+      if (names.indexOf(name) === -1) names.push(name);
+    });
+
+    var rows = document.createElement("div");
+    rows.className = "blocklist__rows";
+    names.forEach(function (name) { rows.appendChild(buildBlockRow(byKey[name])); });
+    wrap.appendChild(rows);
+
+    var dragging = null;
+    rows.addEventListener("dragstart", function (event) {
+      dragging = event.target.closest ? event.target.closest(".blocklist__row") : null;
+      if (!dragging) return;
+      dragging.classList.add("blocklist__row--dragging");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", dragging.dataset.block);
+    });
+    rows.addEventListener("dragend", function () {
+      if (dragging) dragging.classList.remove("blocklist__row--dragging");
+      dragging = null;
+    });
+    rows.addEventListener("dragover", function (event) {
+      event.preventDefault();
+      if (!dragging) return;
+      var after = dragAfterElement(rows, event.clientY);
+      if (after) rows.insertBefore(dragging, after);
+      else rows.appendChild(dragging);
+    });
+
+    return wrap;
+  }
+
   function buildPasswordPanel() {
     var form = document.createElement("form");
     form.className = "passwordForm";
@@ -506,6 +621,9 @@
       panel.dataset.tab = tab.id;
       if (tab.fields) {
         tab.fields.forEach(function (f) { panel.appendChild(buildField(f)); });
+      }
+      if (tab.blockList) {
+        panel.appendChild(buildBlockList(tab.blockList, content));
       }
       if (tab.repeater) {
         var items = getPath(content, tab.repeater.path);
@@ -558,6 +676,11 @@
       var value = control.type === "checkbox" ? control.checked : control.value;
       setPath(content, control.dataset.path, value);
     });
+
+    var blockRows = $$(".blocklist__row");
+    if (blockRows.length) {
+      content.blockOrder = blockRows.map(function (row) { return row.dataset.block; });
+    }
 
     TABS.forEach(function (tab) {
       if (!tab.repeater) return;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Админ-панель — сайт психолога</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div id="loginView" class="login" hidden>
+  <form id="loginForm" class="login__card">
+    <p class="login__mark">М</p>
+    <h1>Админ-панель</h1>
+    <p class="login__sub">Управление содержимым сайта психолога</p>
+    <input type="password" id="loginPassword" placeholder="Пароль" autocomplete="current-password" required>
+    <button class="btn" type="submit">Войти</button>
+    <p class="login__error" id="loginError"></p>
+  </form>
+</div>
+
+<div id="appView" class="app" hidden>
+  <aside class="app__side">
+    <div class="app__brand">
+      <span class="app__brandMark">М</span>
+      <span>Панель управления</span>
+    </div>
+    <nav class="app__nav" id="tabsNav"></nav>
+    <div class="app__sideFooter">
+      <a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+      <button id="logoutBtn" class="linkbtn" type="button">Выйти</button>
+    </div>
+  </aside>
+  <main class="app__main">
+    <header class="app__top">
+      <div>
+        <h1 id="tabTitle"></h1>
+        <p id="tabHint" class="app__hint"></p>
+      </div>
+      <button id="saveBtn" class="btn btn--solid" type="button">Сохранить изменения</button>
+    </header>
+    <div id="tabPanels" class="app__panels"></div>
+  </main>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

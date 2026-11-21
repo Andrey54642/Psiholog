@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{seo.title}}</title>
+<meta name="description" content="{{seo.description}}">
+<meta name="keywords" content="{{seo.keywords}}">
+<meta name="robots" content="index, follow">
+<meta name="author" content="{{site.psychologistName}}">
+<!--if:seo.canonical--><link rel="canonical" href="{{seo.canonical}}"><meta property="og:url" content="{{seo.canonical}}"><!--endif-->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="{{seo.title}}">
+<meta property="og:title" content="{{seo.title}}">
+<meta property="og:description" content="{{seo.description}}">
+<!--OGIMAGE-->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{seo.title}}">
+<meta name="twitter:description" content="{{seo.description}}">
+<meta name="theme-color" content="#F2F5FA">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<!--JSONLD-->
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="header" id="top">
+  <div class="container header__in">
+    <a class="logo" href="#top">
+      <span class="logo__mark">М</span>
+      <span class="logo__text">{{site.psychologistName}}</span>
+    </a>
+    <nav class="nav" id="nav">
+      <!--if:blocks.about--><a href="#about">Обо мне</a><!--endif-->
+      <!--if:blocks.gallery--><a href="#photos">Фотографии</a><!--endif-->
+      <!--if:blocks.services--><a href="#services">Направления</a><!--endif-->
+      <!--if:blocks.formats--><a href="#formats">Цены</a><!--endif-->
+      <!--if:blocks.diplomas--><a href="#diplomas">Дипломы</a><!--endif-->
+      <!--if:blocks.contact--><a href="#contact">Контакты</a><!--endif-->
+    </nav>
+    <div class="header__cta">
+      <!--if:site.primaryBtnLink--><a class="btn btn--small" href="{{site.primaryBtnLink}}">{{site.primaryBtnText}}</a><!--endif-->
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <p class="hero__kicker reveal">{{site.badge}}</p>
+        <p class="hero__role reveal">{{site.role}}</p>
+        <h1 class="hero__name reveal">{{site.psychologistName}}</h1>
+        <p class="hero__tagline reveal">{{site.tagline}}</p>
+        <p class="hero__sub reveal">{{site.taglineSub}}</p>
+        <div class="hero__actions reveal">
+          <!--if:site.primaryBtnLink--><a class="btn" href="{{site.primaryBtnLink}}">{{site.primaryBtnText}}</a><!--endif-->
+          <a class="btn btn--ghost" href="#formats">Форматы и стоимость</a>
+        </div>
+      </div>
+      <div class="hero__visual reveal">
+        <!--if:site.photoUrl-->
+        <img class="hero__photo" src="{{site.photoUrl}}" alt="{{site.psychologistName}} — {{site.role}}">
+        <!--endif-->
+        <!--ifnot:site.photoUrl-->
+        <svg class="hero__art" viewBox="0 0 480 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Абстрактная иллюстрация: арка, солнце и линии холмов">
+          <defs>
+            <linearGradient id="gArch" x1="240" y1="72" x2="240" y2="540" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#4A6FA5"/>
+              <stop offset="1" stop-color="#1B3A63"/>
+            </linearGradient>
+            <linearGradient id="gSun" x1="180" y1="200" x2="300" y2="340" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#EDD3A6"/>
+              <stop offset="1" stop-color="#C9975B"/>
+            </linearGradient>
+          </defs>
+          <path d="M70 540V260C70 148 142 72 240 72s170 76 170 188v280" stroke="url(#gArch)" stroke-width="2"/>
+          <path d="M100 540V268c0-96 60-166 140-166s140 70 140 166v272" fill="url(#gArch)"/>
+          <circle cx="240" cy="286" r="86" fill="url(#gSun)"/>
+          <circle cx="240" cy="286" r="128" stroke="#F2F5FA" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="3 8"/>
+          <path d="M150 540c30-72 150-72 180 0" stroke="#F2F5FA" stroke-opacity=".55" stroke-width="1.5"/>
+          <path d="M172 540c22-50 114-50 136 0" stroke="#F2F5FA" stroke-opacity=".35" stroke-width="1.5"/>
+          <circle cx="240" cy="130" r="4" fill="#C9975B"/>
+          <circle cx="146" cy="222" r="3" fill="#F2F5FA" fill-opacity=".85"/>
+          <circle cx="334" cy="222" r="3" fill="#F2F5FA" fill-opacity=".85"/>
+        </svg>
+        <!--endif-->
+        <span class="hero__chip hero__chip--1">{{site.chip1}}</span>
+        <span class="hero__chip hero__chip--2">{{site.chip2}}</span>
+        <span class="hero__chip hero__chip--3">{{formats.price}}</span>
+      </div>
+    </div>
+  </section>
+
+  <!--if:blocks.banner-->
+  <!-- BANNER -->
+  <section class="banner">
+    <div class="container">
+      <h2 class="banner__title reveal">{{site.bannerTitle}}</h2>
+      <p class="banner__text reveal">{{site.bannerText}}</p>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.about-->
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__label">Обо мне</span>
+        <h2 class="section__title">{{about.roles}}</h2>
+      </div>
+      <div class="about__grid">
+        <div class="about__text reveal">
+          <p>{{about.methodsText}}</p>
+        </div>
+        <aside class="about__edu reveal">
+          <h3>{{about.eduTitle}}</h3>
+          <p>{{about.educationText}}</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.gallery-->
+  <!-- PHOTOS -->
+  <section class="section gallery" id="photos">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__label">Фотографии</span>
+        <h2 class="section__title">{{gallery.title}}</h2>
+      </div>
+      <div class="gallery__grid">
+        <!--each:gallery.items-->
+        <figure class="gallery__item reveal <!--ifnot:this.image-->gallery__item--empty<!--endif-->">
+          <!--if:this.image--><img src="{{this.image}}" alt="{{this.caption}}" loading="lazy"><!--endif-->
+          <!--ifnot:this.image--><div class="gallery__ph" aria-hidden="true"><span>Фото</span></div><!--endif-->
+          <!--if:this.caption--><figcaption>{{this.caption}}</figcaption><!--endif-->
+        </figure>
+        <!--endeach-->
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.diplomas-->
+  <!-- DIPLOMAS -->
+  <section class="section diplomas" id="diplomas">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__label">Образование и квалификация</span>
+        <h2 class="section__title">{{diplomas.title}}</h2>
+      </div>
+      <div class="diplomas__grid">
+        <!--each:diplomas.items-->
+        <figure class="diploma reveal <!--ifnot:this.image-->diploma--empty<!--endif-->">
+          <div class="diploma__frame">
+            <!--if:this.image--><img src="{{this.image}}" alt="{{this.title}}" loading="lazy"><!--endif-->
+            <!--ifnot:this.image--><div class="diploma__ph" aria-hidden="true"><span>Диплом</span></div><!--endif-->
+          </div>
+          <!--if:this.title--><figcaption>{{this.title}}</figcaption><!--endif-->
+        </figure>
+        <!--endeach-->
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.services-->
+  <!-- SERVICES -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__label">Направления работы</span>
+        <h2 class="section__title">С чем я помогаю</h2>
+      </div>
+      <div class="services__grid">
+        <!--each:services-->
+        <article class="service-card reveal">
+          <div class="service-card__top">
+            <svg class="service-card__check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E1E9F5"/><path d="M7 12.5l3.2 3L17 9" stroke="#1B3A63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="service-card__num">{{index}}</span>
+          </div>
+          <p>{{this.text}}</p>
+        </article>
+        <!--endeach-->
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.formats-->
+  <!-- FORMATS & PRICING -->
+  <section class="section formats" id="formats">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__label">Форматы и стоимость</span>
+        <h2 class="section__title">Как мы можем работать</h2>
+      </div>
+      <div class="formats__grid">
+        <div class="formats__main reveal">
+          <p class="formats__price"><span>Индивидуальная консультация</span><strong>{{formats.price}}</strong></p>
+          <ul class="formats__list">
+            <!--each:formats.items--><li>{{this}}</li><!--endeach-->
+          </ul>
+          <p class="formats__note">{{formats.note}}</p>
+        </div>
+        <div class="formats__packages">
+          <!--each:packages-->
+          <article class="package reveal <!--if:this.badge-->package--featured<!--endif-->">
+            <!--if:this.badge--><span class="package__badge">{{this.badge}}</span><!--endif-->
+            <h3>{{this.name}}</h3>
+            <p class="package__price">{{this.price}}</p>
+            <p class="package__text">{{this.text}}</p>
+          </article>
+          <!--endeach-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+  <!--if:blocks.contact-->
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact__card reveal">
+        <span class="section__label section__label--light">Контакты</span>
+        <h2 class="contact__title">Напишите, что сейчас беспокоит</h2>
+        <p class="contact__note">{{contacts.note}}</p>
+        <div class="contact__actions">
+          <!--if:contacts.telegram--><a class="btn btn--light" href="{{contacts.telegram}}" target="_blank" rel="noopener">Telegram</a><!--endif-->
+          <!--if:contacts.whatsapp--><a class="btn btn--light" href="{{contacts.whatsapp}}" target="_blank" rel="noopener">WhatsApp</a><!--endif-->
+          <!--if:contacts.vk--><a class="btn btn--light" href="{{contacts.vk}}" target="_blank" rel="noopener">ВКонтакте</a><!--endif-->
+          <!--if:contacts.instagram--><a class="btn btn--light" href="{{contacts.instagram}}" target="_blank" rel="noopener">Instagram</a><!--endif-->
+        </div>
+        <div class="contact__actions contact__actions--secondary">
+          <!--if:contacts.phone--><a class="btn btn--light btn--outline" href="tel:{{contacts.phone}}">{{contacts.phone}}</a><!--endif-->
+          <!--if:contacts.email--><a class="btn btn--light btn--outline" href="mailto:{{contacts.email}}">{{contacts.email}}</a><!--endif-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--endif-->
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__in">
+    <p class="footer__name">{{site.psychologistName}} · {{site.role}}</p>
+    <p class="footer__disc">Информация на сайте не является медицинской услугой и не заменяет консультацию врача.</p>
+    <div class="footer__row">
+      <p>© <span id="year">2025</span> {{site.psychologistName}}</p>
+      <a class="footer__admin" href="/admin">Вход для администратора</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

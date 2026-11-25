@@ -82,7 +82,7 @@
     {
       id: "services",
       title: "Направления работы",
-      hint: "Карточки «С чем я помогаю»",
+      hint: "Каждый пункт — абзац с галочкой в блоке «С чем я помогаю»",
       repeater: {
         path: "services",
         itemLabel: "Направление",
@@ -127,6 +127,7 @@
       fields: [
         { path: "contacts.telegram", label: "Telegram", type: "text", hint: "https://t.me/username" },
         { path: "contacts.whatsapp", label: "WhatsApp", type: "text", hint: "https://wa.me/7xxxxxxxxxx" },
+        { path: "contacts.max", label: "Max (мессенджер)", type: "text", hint: "https://max.ru/u/username" },
         { path: "contacts.vk", label: "ВКонтакте", type: "text", hint: "https://vk.com/username" },
         { path: "contacts.instagram", label: "Instagram", type: "text", hint: "https://instagram.com/username" },
         { path: "contacts.phone", label: "Телефон", type: "text", hint: "+7 …" },

@@ -304,6 +304,7 @@ def build_jsonld(c):
 
     socials = [u for u in (
         contacts.get("telegram", ""),
+        contacts.get("max", ""),
         contacts.get("vk", ""),
         contacts.get("instagram", ""),
     ) if u]

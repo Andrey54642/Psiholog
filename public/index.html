@@ -191,15 +191,12 @@
         <span class="section__label">Направления работы</span>
         <h2 class="section__title">С чем я помогаю</h2>
       </div>
-      <div class="services__grid">
+      <div class="services__box reveal">
         <!--each:services-->
-        <article class="service-card reveal">
-          <div class="service-card__top">
-            <svg class="service-card__check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E1E9F5"/><path d="M7 12.5l3.2 3L17 9" stroke="#1B3A63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span class="service-card__num">{{index}}</span>
-          </div>
-          <p>{{this.text}}</p>
-        </article>
+        <p class="services__item">
+          <svg class="services__check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E1E9F5"/><path d="M7 12.5l3.2 3L17 9" stroke="#1B3A63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>{{this.text}}</span>
+        </p>
         <!--endeach-->
       </div>
     </div>
@@ -252,6 +249,7 @@
         <div class="contact__actions">
           <!--if:contacts.telegram--><a class="btn btn--light" href="{{contacts.telegram}}" target="_blank" rel="noopener">Telegram</a><!--endif-->
           <!--if:contacts.whatsapp--><a class="btn btn--light" href="{{contacts.whatsapp}}" target="_blank" rel="noopener">WhatsApp</a><!--endif-->
+          <!--if:contacts.max--><a class="btn btn--light" href="{{contacts.max}}" target="_blank" rel="noopener">Max</a><!--endif-->
           <!--if:contacts.vk--><a class="btn btn--light" href="{{contacts.vk}}" target="_blank" rel="noopener">ВКонтакте</a><!--endif-->
           <!--if:contacts.instagram--><a class="btn btn--light" href="{{contacts.instagram}}" target="_blank" rel="noopener">Instagram</a><!--endif-->
         </div>

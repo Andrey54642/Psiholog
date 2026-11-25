@@ -607,40 +607,23 @@ a { color: inherit; }
 
 /* Направления */
 
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-}
-
-.service-card {
+.services__box {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 28px 30px;
-  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-}
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow);
-  border-color: rgba(43, 76, 126, .35);
+  padding: 34px 38px;
 }
 
-.service-card__top {
+.services__item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 15.5px;
+  color: var(--ink);
 }
-.service-card__check { width: 30px; height: 30px; }
-.service-card__num {
-  font-family: var(--font-head);
-  font-size: 34px;
-  font-weight: 500;
-  color: rgba(43, 76, 126, .26);
-  line-height: 1;
-}
-.service-card p { font-size: 15.5px; color: var(--ink); }
+.services__item + .services__item { margin-top: 18px; }
+.services__item span { flex: 1; }
+.services__check { flex: none; width: 30px; height: 30px; }
 
 /* Форматы и цены */
 
@@ -883,7 +866,7 @@ a { color: inherit; }
 
   .hero { padding: 128px 0 64px; }
   .section { padding: 76px 0; }
-  .services__grid { grid-template-columns: 1fr; }
+  .services__box { padding: 26px 22px; }
   .gallery__grid { grid-template-columns: 1fr; }
   .diplomas__grid { grid-template-columns: 1fr; }
   .hero__chip { font-size: 12px; padding: 8px 14px; }
